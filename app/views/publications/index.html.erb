@@ -1,0 +1,44 @@
+<div class = "container">
+    <h3><i class = "glyphicon glyphicon-th-list"></i>Listing Publications</h3>
+    <div class = "col-md-8">
+        <table class = "table table-stiped" id = "pubList">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Title</th>
+              <th>Link</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @publications.each do |publication| %>
+              <tr>
+                <td><%= link_to publication.user_id, publication.instructor%></td>
+                <td><%= link_to publication.title, publication %></td>
+                <td><a href ="<%= publication.link%>"><%= publication.link%></a></td>
+                <td>
+                  <% if user_signed_in? %>
+                    <% if can? :update, publication %>
+                    <%= link_to edit_publication_path(publication) do %>
+                        <i class = "glyphicon glyphicon-pencil"></i>
+                        <% end %> 
+                    <% end %>
+                    <% if can? :destroy, publication %>
+                      <%= link_to publication, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        <i class="glyphicon glyphicon-trash"></i>
+                      <%end%>
+                    <% end %>
+                <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+        <% if user_signed_in? && (can? :create, Publication) %>
+        <%= link_to 'New Publication', new_publication_path %>
+        <% end %>
+    </div>
+</div>

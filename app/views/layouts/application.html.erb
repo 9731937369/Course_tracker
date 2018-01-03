@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coursetracker</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src = "//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js "></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.jquery.min.js"></script>
+
+<link href = "//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel = "stylesheet" >
+<link href = "https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.2/chosen.css" rel = "stylesheet"/>
+
+
+
+</head>
+<body>
+	<div class = "container">
+		<nav class="navbar navbar-default" style ="background-color: #42d4f4">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav" color="red">
+					<li><%= link_to "INSTRUCTOR", instructors_path %></li>
+					<li>
+						<% if can? :create, Student.new %>
+							<%= link_to "STUDENTS", students_path %>
+						<% end %>
+					</li>
+					<li><%= link_to "PUBLICATIONS", publications_path %></li>
+					<li><%= link_to "RATING", course_ratings_path %></li>
+					<li><%= link_to "COURSE", courses_path %></li>
+					<!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">COURSE<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+	              		<%# Course.all.each do |course| %>
+	                		<li><%#= link_to course.name, course_path(course.id) %></li>
+	              		<%# end %>         
+	          		</ul></li> -->
+	          	</ul>
+	          	<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown" ><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class = "glyphicon glyphicon-user"></i><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<% if user_signed_in? %>
+								<li><%= link_to  edit_user_registration_path do %>
+	            					<i class = "glyphicon glyphicon-cog"></i>Account Setting  
+	            					<% end %>
+	          					</li>
+								<li><%= link_to destroy_user_session_path, method: :delete do %>
+	                				<i class ="glyphicon glyphicon-log-out"></i>  Logout
+	              					<% end %>
+	            				</li>
+							<% else %>
+								<li><%= link_to new_user_session_path do %>
+	            					<i class = "glyphicon glyphicon-log-in"></i>  Sign In
+	       							<%end%>
+	        					</li>
+	        					<li><%= link_to "Sign Up", new_user_registration_path %>
+	        						
+	        					</li>
+							<% end %>
+						</ul>
+	    			</li>
+	    		</ul>
+	    	</div>
+	    </nav>
+	</div>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<%= yield %>
+
+</body>
+</html>

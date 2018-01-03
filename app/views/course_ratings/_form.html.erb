@@ -1,0 +1,47 @@
+<div class = "container">
+  <div class = "col-md-3">
+    <%= form_for(@course_rating) do |f| %>
+      <% if @course_rating.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@course_rating.errors.count, "error") %> prohibited this course_rating from being saved:</h2>
+
+          <ul>
+          <% @course_rating.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field" class = "form-group">
+        <%= f.label :student_id %><br>
+    <%= f.collection_select :student_id, Student.all, :id, :name, {prompt: "Select Student"},{class: "form-control"} do |student|%>
+      <label>
+        <%= student.check_box %>
+        <%= student.text %>
+      </label>
+      <% end %>
+      </div>
+      <div class="field" class = "form-group">
+        <%= f.label :course_id %><br>
+        <%= f.collection_select :course_id, Course.all, :id, :name, {prompt: "Select Course"},{class: "form-control"} do |course|%>
+          <label>
+              <%= course.check_box %>
+              <%= course.text %>
+          </label>
+      <% end %>
+      </div>
+      <div class="field" class = "form-group">
+        <%= f.label :rating %><br>
+        <%= f.radio_button :rating, 1 %>1
+        <%= f.radio_button :rating, 2 %>2
+        <%= f.radio_button :rating, 3 %>3
+        <%= f.radio_button :rating, 4 %>4
+        <%= f.radio_button :rating, 5 %>5
+      </div><br/>
+      <div class="actions">
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+</div>
+</div>

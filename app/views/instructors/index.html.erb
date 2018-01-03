@@ -1,0 +1,43 @@
+<div class = "container">
+<div class = "col-md-8">
+    <h3><i class = "glyphicon glyphicon-th-list"></i>Listing Instructors</h3>
+
+    <table class = "table table-hover" id = "instList" >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @instructors.each do |instructor| %>
+          <tr>
+            <td><%= link_to instructor.name, instructor%></td>
+            <td><%= instructor.email %></td>
+            <td><%= instructor.mobile %></td>
+            <td><% if user_signed_in?  %>
+                  <% if can? :update, instructor %>
+                    <%= link_to edit_instructor_path(instructor) do %>
+                      <i class = "glyphicon glyphicon-pencil"></i>
+                      <% end %>
+                  <% end %>
+
+                  <% if can? :destroy, instructor %>
+                    <%= link_to instructor, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                  <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <% if user_signed_in? && (can? :create, Instructor.new)%>
+      <%= link_to 'New Instructor', new_instructor_path %>
+    <% end %>
+</div>
+</div>

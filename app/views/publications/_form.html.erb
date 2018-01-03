@@ -1,0 +1,34 @@
+<div class = "container">
+  <div class = "col-md-3">
+    <%= form_for(@publication) do |f| %>
+      <% if @publication.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
+
+          <ul>
+          <% @publication.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      
+      <div class="field" class = "form-group">
+        <%= f.label :title %><br>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="field" class = "form-group">
+        <%= f.label :body %><br>
+        <%= f.text_area :body, class: "form-control" %>
+      </div>
+      <div class="field" class = "form-group">
+        <%= f.label :link %><br>
+        <%= f.text_field :link, class: "form-control" %>
+      </div><br/>
+      <div class="actions">
+        <%= f.submit class:"btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
