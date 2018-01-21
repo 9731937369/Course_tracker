@@ -20,7 +20,7 @@
                 <td>
                   <% if user_signed_in? %>
                     <% if can? :update, publication %>
-                    <%= link_to edit_publication_path(publication) do %>
+                      <%= link_to edit_publication_path(publication) do %>
                         <i class = "glyphicon glyphicon-pencil"></i>
                         <% end %> 
                     <% end %>
